@@ -4,7 +4,7 @@
 
 Name:           flowblade
 Version:        1.6.0
-Release:        2.git%{shortcommit0}%{?dist}
+Release:        3.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -107,6 +107,10 @@ fi
 %{python_sitelib}/flowblade*
 
 %changelog
+* Mon Aug 01 2016 Sérgio Basto <sergio@serjux.com> - 1.6.0-3.gitc847b32
+-
+  https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Thu Jun 30 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.6.0-2.gitc847b32
 - Update to 1.6.0-2.gitc847b32
 
