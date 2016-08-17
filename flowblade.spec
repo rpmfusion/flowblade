@@ -4,7 +4,7 @@
 
 Name:           flowblade
 Version:        1.6.0
-Release:        3.git%{shortcommit0}%{?dist}
+Release:        4.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -13,28 +13,30 @@ Patch0:         flowblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-BuildRequires:  librsvg2-devel
+BuildRequires:  python2-setuptools
 
-Requires:       ffmpeg 
-Requires:       pygtk2 
+# Note to Martin (please delete next time you commit)
+# redo requires as they have changed
+# https://github.com/jliljebl/flowblade/blob/6327e9a49003ae931e92d0958c8695b339a24414/flowblade-trunk/docs/DEPENDENCIES.md
+Requires:       ffmpeg
+Requires:       mlt-python
+Requires:       frei0r-plugins >= 1.4
+Requires:       gmic
+Requires:       gtk3
 Requires:       ladspa-swh-plugins
 Requires:       ladspa-calf-plugins
-Requires:       sox 
-Requires:       frei0r-plugins >= 1.4
-Requires:       numpy 
-Requires:       python-pillow
-Requires:       mlt-python
-Requires:       cairomm
-Requires:       pyxdg
-Requires:       gtk3
+Requires:       librsvg2
+Requires:       python-dbus
+Requires:       python-gobject
+Requires:       python2-numpy
+Requires:       python2-pillow
 
 BuildArch:      noarch
 
 %description
 Flowblade Movie Editor is a multitrack non-linear video editor for Linux
 released under GPL 3 license.
-
+python-pillow
 Flowblade is designed to provide a fast, precise and robust editing 
 experience.
 
@@ -50,21 +52,19 @@ Flowblade provides powerful tools to mix and filter video and audio.
 # fix to  /usr/bin/flowblade
 %patch0 -p1
 
-# Fix script-without-shebang erros in fedora-review
-# Remove permission to execute in all files except files that have sheban.
-find . -type f -executable | xargs chmod a-x
-find . -type f | xargs grep -El '\#!/usr/bin/env' | xargs chmod a+x
+# fix wrong-script-interpreter errors
+sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/launch/*
 
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
 
 %build 
-python setup.py build
+%py2_build
 
 %install 
-python setup.py install --skip-build --root %{buildroot} 
+%py2_install 
 
-#package_data files lose executable permissions fix it again.
+# fix permissions
 chmod +x %{buildroot}%{python_sitelib}/Flowblade/launch/*
 
 # setup of mime is already done, so for what we need this file ?
@@ -100,16 +100,18 @@ fi
 %license COPYING
 %{_bindir}/flowblade
 %{_datadir}/applications/flowblade.desktop
-%{_mandir}/man1/flowblade.1.gz
-%{_datadir}/mime
+%{_mandir}/man1/flowblade.1.*
+%{_datadir}/mime/
 %{_datadir}/pixmaps/flowblade.png
-%{python_sitelib}/Flowblade/
-%{python_sitelib}/flowblade*
+%{python2_sitelib}/Flowblade/
+%{python2_sitelib}/flowblade*
 
 %changelog
+* Wed Aug 17 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.0-4.gitc847b32
+- Update package requires for git snapshot
+
 * Mon Aug 01 2016 Sérgio Basto <sergio@serjux.com> - 1.6.0-3.gitc847b32
--
-  https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
 * Thu Jun 30 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.6.0-2.gitc847b32
 - Update to 1.6.0-2.gitc847b32
