@@ -36,7 +36,6 @@ BuildArch:      noarch
 %description
 Flowblade Movie Editor is a multitrack non-linear video editor for Linux
 released under GPL 3 license.
-python-pillow
 Flowblade is designed to provide a fast, precise and robust editing 
 experience.
 
