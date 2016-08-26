@@ -4,7 +4,7 @@
 
 Name:           flowblade
 Version:        1.6.0
-Release:        4.git%{shortcommit0}%{?dist}
+Release:        5.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -28,8 +28,13 @@ Requires:       ladspa-calf-plugins
 Requires:       librsvg2
 Requires:       python-dbus
 Requires:       python-gobject
+%if 0%{?fedora} >= 24
 Requires:       python2-numpy
 Requires:       python2-pillow
+%else
+Requires:       numpy
+Requires:       python-pillow
+%endif
 
 BuildArch:      noarch
 
@@ -107,6 +112,9 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Fri Aug 26 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.0-5.gitc847b32
+- Fix python requires for F23 (rfbz#4213)
+
 * Wed Aug 17 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.0-4.gitc847b32
 - Update package requires for git snapshot
 
