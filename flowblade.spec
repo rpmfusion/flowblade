@@ -1,10 +1,10 @@
-#https://github.com/jliljebl/flowblade/commit/c847b323037eed2099e770f916f3ec3f9354ac9c
-%global commit0  c847b323037eed2099e770f916f3ec3f9354ac9c
+# https://github.com/jliljebl/flowblade/commit/93654911b1123dc7395e87248136fd1cf19598b0
+%global commit0  93654911b1123dc7395e87248136fd1cf19598b0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           flowblade
-Version:        1.6.0
-Release:        5.git%{shortcommit0}%{?dist}
+Version:        1.8.0
+Release:        1.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -112,6 +112,9 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Thu Sep 22 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.8.0-1.git9365491
+- Update to 1.8.0-1.git9365491
+
 * Fri Aug 26 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.6.0-5.gitc847b32
 - Fix python requires for F23 (rfbz#4213)
 
