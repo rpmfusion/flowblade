@@ -1,9 +1,9 @@
-# https://github.com/jliljebl/flowblade/commit/93654911b1123dc7395e87248136fd1cf19598b0
+# https://github.com/jliljebl/flowblade/commit/25c07cefdd21b1cd499be62f3330ab19165bb764
 %global commit0  93654911b1123dc7395e87248136fd1cf19598b0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           flowblade
-Version:        1.8.0
+Version:        1.10.0
 Release:        1.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -14,12 +14,8 @@ Patch0:         flowblade-001_sys_path.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
-
-# Note to Martin (please delete next time you commit)
-# redo requires as they have changed
-# https://github.com/jliljebl/flowblade/blob/6327e9a49003ae931e92d0958c8695b339a24414/flowblade-trunk/docs/DEPENDENCIES.md
-Requires:       ffmpeg
 Requires:       mlt-python
+Requires:       mlt-freeworld
 Requires:       frei0r-plugins >= 1.4
 Requires:       gmic
 Requires:       gtk3
@@ -112,6 +108,11 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Thu Dec 15 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.10.0-1.git25c07ce
+- Update to 1.10.0-1.git25c07ce
+- Dropped Requires ffmpeg
+- Add Requires mlt-freeworld
+
 * Thu Sep 22 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.8.0-1.git9365491
 - Update to 1.8.0-1.git9365491
 
