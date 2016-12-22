@@ -16,7 +16,6 @@ BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 Requires:       ffmpeg
 Requires:       mlt-python
-Requires:       mlt-freeworld
 Requires:       frei0r-plugins >= 1.4
 Requires:       gmic
 Requires:       gtk3
