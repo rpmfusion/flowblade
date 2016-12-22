@@ -4,7 +4,7 @@
 
 Name:           flowblade
 Version:        1.10.0
-Release:        2.git%{shortcommit0}%{?dist}
+Release:        3.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -111,6 +111,9 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Thu Dec 22 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.10.0-3.git25c07ce
+- rebuild
+
 * Fri Dec 16 2016 Martin Gansser <martinkg@fedoraproject.org> - 1.10.0-2.git25c07ce
 - Readd ffmpeg
 - Add Requires mlt-freeworld in a if clause
