@@ -1,10 +1,10 @@
-# https://github.com/jliljebl/flowblade/commit/fd577a9fac7400d178e63839d53c77a5e8565486
-%global commit0  fd577a9fac7400d178e63839d53c77a5e8565486
+# https://github.com/jliljebl/flowblade/commit/c2cc6a8b83014658280c603eb66fa86bb2a2d38b
+%global commit0 c2cc6a8b83014658280c603eb66fa86bb2a2d38b
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           flowblade
-Version:        1.12.0
-Release:        2.git%{shortcommit0}%{?dist}
+Version:        1.14.0
+Release:        1.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -111,6 +111,9 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Fri Oct 06 2017 Martin Gansser <martinkg@fedoraproject.org> - 1.14.0-1.gitc2cc6a8
+- Update to 1.14.0-1.gitc2cc6a8
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 1.12.0-2.gitfd577a9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
