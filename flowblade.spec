@@ -86,20 +86,6 @@ done
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%post
-/usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-  /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
-fi
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%posttrans
-/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-
-
 %files -f %{name}.lang
 %doc README
 %license COPYING
