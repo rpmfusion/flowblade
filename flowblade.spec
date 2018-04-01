@@ -22,18 +22,16 @@ Requires:       gtk3
 Requires:       ladspa-swh-plugins
 Requires:       ladspa-calf-plugins
 Requires:       librsvg2
-Requires:       python-dbus
-Requires:       python-gobject
-%if 0%{?fedora} >= 24
 Requires:       python2-numpy
 Requires:       python2-pillow
+%if 0%{?fedora} >= 28
+Requires:       python2-dbus
+Requires:       python2-gobject
 %else
-Requires:       numpy
-Requires:       python-pillow
+Requires:       python-dbus
+Requires:       python-gobject
 %endif
-%if 0%{?fedora} >= 25
 Requires:       mlt-freeworld
-%endif
 Requires:       shared-mime-info%{?_isa}
 
 BuildArch:      noarch
