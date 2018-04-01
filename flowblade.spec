@@ -4,7 +4,7 @@
 
 Name:           flowblade
 Version:        1.16.0
-Release:        1.git%{shortcommit0}%{?dist}
+Release:        2.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -97,6 +97,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Sun Apr 01 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-2.gitd2f153f
+- Use url macro to shorten line
+- Fix python requires for f28 and remove old mlt-freeworld conditional
+- Fix directory ownership
+- Remove scriplets
+
 * Sun Apr 01 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-1.gitd2f153f
 - Update to 1.16.0-1.gitd2f153f
 
