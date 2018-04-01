@@ -8,7 +8,7 @@ Release:        1.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
-Source0:        https://github.com/jliljebl/flowblade/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar.gz
+Source0:        %{url}/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar.gz
 Patch0:         flowblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
