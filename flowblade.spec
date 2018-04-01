@@ -1,10 +1,10 @@
-# https://github.com/jliljebl/flowblade/commit/c2cc6a8b83014658280c603eb66fa86bb2a2d38b
-%global commit0 c2cc6a8b83014658280c603eb66fa86bb2a2d38b
+# https://github.com/jliljebl/flowblade/commit/d2f153f86e7f90c1a9baab1c4fd0caa9e47c7f44
+%global commit0 d2f153f86e7f90c1a9baab1c4fd0caa9e47c7f44
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           flowblade
-Version:        1.14.0
-Release:        2.git%{shortcommit0}%{?dist}
+Version:        1.16.0
+Release:        1.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -58,6 +58,7 @@ Flowblade provides powerful tools to mix and filter video and audio.
 
 # fix wrong-script-interpreter errors
 sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/launch/*
+sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/tools/clapperless.py
 
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
@@ -111,6 +112,9 @@ fi
 %{python2_sitelib}/flowblade*
 
 %changelog
+* Sun Apr 01 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-1.gitd2f153f
+- Update to 1.16.0-1.gitd2f153f
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 1.14.0-2.gitc2cc6a8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
