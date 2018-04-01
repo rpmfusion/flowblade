@@ -34,6 +34,7 @@ Requires:       python-pillow
 %if 0%{?fedora} >= 25
 Requires:       mlt-freeworld
 %endif
+Requires:       shared-mime-info%{?_isa}
 
 BuildArch:      noarch
 
@@ -92,7 +93,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_bindir}/flowblade
 %{_datadir}/applications/flowblade.desktop
 %{_mandir}/man1/flowblade.1.*
-%{_datadir}/mime/
+%{_datadir}/mime/packages/flowblade.xml
 %{_datadir}/pixmaps/flowblade.png
 %{python2_sitelib}/Flowblade/
 %{python2_sitelib}/flowblade*
