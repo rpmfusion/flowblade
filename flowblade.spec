@@ -1,10 +1,10 @@
-# https://github.com/jliljebl/flowblade/commit/d2f153f86e7f90c1a9baab1c4fd0caa9e47c7f44
-%global commit0 d2f153f86e7f90c1a9baab1c4fd0caa9e47c7f44
+# https://github.com/jliljebl/flowblade/commit/3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
+%global commit0 3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           flowblade
 Version:        1.16.0
-Release:        2.git%{shortcommit0}%{?dist}
+Release:        3.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -12,6 +12,7 @@ Source0:        %{url}/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar
 Patch0:         flowblade-001_sys_path.patch
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 Requires:       ffmpeg
@@ -69,34 +70,47 @@ sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
 %py2_install 
 
 # fix permissions
-chmod +x %{buildroot}%{python_sitelib}/Flowblade/launch/*
+chmod +x %{buildroot}%{python2_sitelib}/Flowblade/launch/*
 
 # setup of mime is already done, so for what we need this file ?
-%{__rm} %{buildroot}/usr/lib/mime/packages/flowblade
+rm %{buildroot}/usr/lib/mime/packages/flowblade
 
 # move .mo files to /usr/share/locale the right place
-for i in $(ls -d %{buildroot}%{python_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
+for i in $(ls -d %{buildroot}%{python2_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
     mkdir -p %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
-    mv %{buildroot}%{python_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
+    mv %{buildroot}%{python2_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
         %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
 done
+
+# E: non-executable-script
+chmod a+x %{buildroot}%{python2_sitelib}/Flowblade/tools/clapperless.py
+
+install -d -m 0755 %{buildroot}%{python2_sitelib}/Flowblade/res/css
+cp Flowblade/res/css/gtk-dark-fix.css %{buildroot}%{python2_sitelib}/Flowblade/res/css
+
 %find_lang %{name}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
 %files -f %{name}.lang
 %doc README
 %license COPYING
-%{_bindir}/flowblade
-%{_datadir}/applications/flowblade.desktop
-%{_mandir}/man1/flowblade.1.*
-%{_datadir}/mime/packages/flowblade.xml
-%{_datadir}/pixmaps/flowblade.png
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_mandir}/man1/%{name}.1.*
+%{_datadir}/mime/packages/%{name}.xml
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{python2_sitelib}/Flowblade/
-%{python2_sitelib}/flowblade*
+%{python2_sitelib}/%{name}*
 
 %changelog
+* Thu Jun 28 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-3.git3fdb76d
+- Update to 1.16.0-3.git3fdb76d
+- Add BR libappstream-glib
+
 * Sun Apr 01 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-2.gitd2f153f
 - Use url macro to shorten line
 - Fix python requires for f28 and remove old mlt-freeworld conditional
