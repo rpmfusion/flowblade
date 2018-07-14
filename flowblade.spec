@@ -1,10 +1,12 @@
 # https://github.com/jliljebl/flowblade/commit/3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
-%global commit0 3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
+# https://github.com/jliljebl/flowblade/commit/4c25c3cf784c30532eebe082d7fed881f2905cb5
+#global commit0 3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
+%global commit0 4c25c3cf784c30532eebe082d7fed881f2905cb5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           flowblade
 Version:        1.16.0
-Release:        3.git%{shortcommit0}%{?dist}
+Release:        4.git%{shortcommit0}%{?dist}
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
@@ -107,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{python2_sitelib}/%{name}*
 
 %changelog
+* Sat Jul 14 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-4.git4c25c3c
+- Update to 1.16.0-4.git4c25c3c
+
 * Thu Jun 28 2018 Martin Gansser <martinkg@fedoraproject.org> - 1.16.0-3.git3fdb76d
 - Update to 1.16.0-3.git3fdb76d
 - Add BR libappstream-glib
