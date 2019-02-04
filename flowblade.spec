@@ -1,17 +1,29 @@
-# https://github.com/jliljebl/flowblade/commit/3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
-# https://github.com/jliljebl/flowblade/commit/4c25c3cf784c30532eebe082d7fed881f2905cb5
-#global commit0 3fdb76d2331e2a4c7ea2b3cb4c9300a33e1b39af
-%global commit0 4c25c3cf784c30532eebe082d7fed881f2905cb5
+#For git snapshots, set to 0 to use release instead:
+%global usesnapshot 0
+%if 0%{?usesnapshot}
+%global commit0 21710f51e7f14e14bfed998ef2df8cc444d26776
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global snapshottag .git%{shortcommit0}
+%endif
+%global unique_name io.github.jliljebl.Flowblade
 
 Name:           flowblade
-Version:        1.16.0
-Release:        5.git%{shortcommit0}%{?dist}
+%if 0%{?usesnapshot}
+Version:        2.0
+Release:        1.git%{?snapshottag}%{?dist}
+%else
+Version:        2.0
+Release:        1%{?dist}
+%endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
 Url:            https://github.com/jliljebl/flowblade
+%if 0%{?usesnapshot}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar.gz
-Patch0:         flowblade-001_sys_path.patch
+%else
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+%endif
+Patch0:         flowblade_sys_path.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -54,21 +66,29 @@ parts of clips.
 Flowblade provides powerful tools to mix and filter video and audio. 
 
 %prep
-%setup -qn %{name}-%{commit0}/flowblade-trunk
+%if 0%{?usesnapshot}
+%setup -qn %{name}-%{commit0}
+%else
+%setup -q -n %{name}-%{version}
+%endif
+
 # fix to  /usr/bin/flowblade
 %patch0 -p1
 
 # fix wrong-script-interpreter errors
-sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/launch/*
-sed -i -e 's@#!/usr/bin/env python@#!/usr/bin/python2@g' Flowblade/tools/clapperless.py
+sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python2|g' flowblade-trunk/Flowblade/launch/*
+sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python2|g' flowblade-trunk/Flowblade/tools/clapperless.py
 
 # fix to %%{_datadir}/locale
-sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" Flowblade/translations.py
+sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" flowblade-trunk/Flowblade/translations.py
+
 
 %build 
+cd flowblade-trunk
 %py2_build
 
 %install 
+cd flowblade-trunk
 %py2_install 
 
 # fix permissions
@@ -88,27 +108,30 @@ done
 chmod a+x %{buildroot}%{python2_sitelib}/Flowblade/tools/clapperless.py
 
 install -d -m 0755 %{buildroot}%{python2_sitelib}/Flowblade/res/css
-cp Flowblade/res/css/gtk-dark-fix.css %{buildroot}%{python2_sitelib}/Flowblade/res/css
+cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python2_sitelib}/Flowblade/res/css
 
 %find_lang %{name}
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{unique_name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
-%files -f %{name}.lang
-%doc README
-%license COPYING
+%files -f flowblade-trunk/%{name}.lang
+%doc flowblade-trunk/README
+%license flowblade-trunk/COPYING
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{unique_name}.desktop
 %{_mandir}/man1/%{name}.1.*
-%{_datadir}/mime/packages/%{name}.xml
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+%{_datadir}/mime/packages/%{unique_name}.xml
+%{_datadir}/appdata/%{unique_name}.appdata.xml
+%{_datadir}/icons/hicolor/128x128/apps/%{unique_name}.png
 %{python2_sitelib}/Flowblade/
 %{python2_sitelib}/%{name}*
 
 %changelog
+* Mon Feb 04 2019 Martin Gansser <martinkg@fedoraproject.org> - 2.0-1
+- Update to 2.0-1
+
 * Thu Jul 26 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.16.0-5.git4c25c3c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
@@ -193,7 +216,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 * Mon Jun 22 2015 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-4.git94f69ce
 - Fix file permissions before and after build
-- Remove /usr/lib/mime/packages/flowblade file 
+- Remove flowblade mime file 
 - move .mo files to /usr/share/locale
 
 * Sun Jun 21 2015 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-3.git94f69ce

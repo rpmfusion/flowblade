@@ -1,7 +1,7 @@
---- ./flowblade	2015-06-16 22:25:18.000000000 +0100
-+++ ./flowblade	2015-06-21 06:58:24.782414252 +0100
-@@ -34,13 +34,14 @@ print "Launch script dir:", launch_dir
- # Update sys.path to include modules
+--- flowblade-2.0/flowblade-trunk/flowblade.orig	2019-02-04 13:10:26.894134599 +0100
++++ flowblade-2.0/flowblade-trunk/flowblade	2019-02-04 13:13:08.284504048 +0100
+@@ -36,7 +36,8 @@
+ # When running on distro
  if launch_dir == "/usr/bin":
      print "Running from installation..."
 -    modules_path = "/usr/share/flowblade/Flowblade"
@@ -9,11 +9,17 @@
 +    modules_path = "%s/Flowblade" % get_python_lib()
      if not os.path.isdir(modules_path):
          modules_path = "/usr/share/pyshared/Flowblade"
+     print "modules path:", modules_path
+@@ -46,11 +47,11 @@
+     modules_path = "/app/share/flowblade/Flowblade"
+     if not os.path.isdir(modules_path):
+         modules_path = "/app/share/pyshared/Flowblade"
 -    print "modules path:", modules_path
+ # When running in filesystem
  else:
      print "Running from filesystem..."
      modules_path = launch_dir + "/Flowblade"
-+print "modules path:", modules_path
++    print "modules path:", modules_path
  
  sys.path.insert(0, modules_path)
- sys.path.insert(0, modules_path + "/vieweditor")
+ 
