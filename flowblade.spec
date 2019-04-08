@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.0
-Release:        3.git%{?snapshottag}%{?dist}
+Release:        4.git%{?snapshottag}%{?dist}
 %else
 Version:        2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{python2_sitelib}/%{name}*
 
 %changelog
+* Mon Apr 08 2019 Nicolas Chauvet <kwizart@gmail.com> - 2.0-4
+- Drop ladspa-swh-plugins on f30+
+
 * Fri Mar 08 2019 Sérgio Basto <sergio@serjux.com> - 2.0-3
 - Requires python2-mlt instead mlt-python
 
