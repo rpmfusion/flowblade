@@ -34,7 +34,10 @@ Requires:       python2-mlt
 Requires:       frei0r-plugins >= 1.4
 Requires:       gmic
 Requires:       gtk3
+# This dependency isn't available anymore since f30
+%if 0%{?fedora} && 0%{?fedora} < 30
 Requires:       ladspa-swh-plugins
+%endif
 Requires:       ladspa-calf-plugins
 Requires:       librsvg2
 Requires:       python2-numpy
