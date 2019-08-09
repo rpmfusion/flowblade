@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.0
-Release:        4.git%{?snapshottag}%{?dist}
+Release:        5.git%{?snapshottag}%{?dist}
 %else
 Version:        2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{python2_sitelib}/%{name}*
 
 %changelog
+* Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Mon Apr 08 2019 Nicolas Chauvet <kwizart@gmail.com> - 2.0-4
 - Drop ladspa-swh-plugins on f30+
 
