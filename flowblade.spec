@@ -9,11 +9,11 @@
 
 Name:           flowblade
 %if 0%{?usesnapshot}
-Version:        2.0
-Release:        5.git%{?snapshottag}%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 %else
-Version:        2.0
-Release:        5%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{python2_sitelib}/%{name}*
 
 %changelog
+* Thu Sep 12 2019 Sérgio Basto <sergio@serjux.com> - 2.2-1
+- Update Flowblade to 2.2
+
 * Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
