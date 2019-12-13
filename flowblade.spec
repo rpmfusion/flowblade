@@ -9,10 +9,10 @@
 
 Name:           flowblade
 %if 0%{?usesnapshot}
-Version:        2.2
+Version:        2.4
 Release:        1%{?dist}
 %else
-Version:        2.2
+Version:        2.4
 Release:        1%{?dist}
 %endif
 License:        GPLv3
@@ -27,28 +27,20 @@ Patch0:         flowblade_sys_path.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 Requires:       ffmpeg
-Requires:       python2-mlt
+Requires:       python3-mlt
 Requires:       frei0r-plugins >= 1.4
 Requires:       gmic
 Requires:       gtk3
 # This dependency isn't available anymore since f30
-%if 0%{?fedora} && 0%{?fedora} < 30
-Requires:       ladspa-swh-plugins
-%endif
 Requires:       ladspa-calf-plugins
 Requires:       librsvg2
-Requires:       python2-numpy
-Requires:       python2-pillow
-%if 0%{?fedora} >= 28
-Requires:       python2-dbus
-Requires:       python2-gobject
-%else
-Requires:       python-dbus
-Requires:       python-gobject
-%endif
+Requires:       python3-numpy
+Requires:       python3-pillow
+Requires:       python3-dbus
+Requires:       python3-gobject
 Requires:       mlt-freeworld
 Requires:       shared-mime-info%{?_isa}
 
@@ -79,8 +71,8 @@ Flowblade provides powerful tools to mix and filter video and audio.
 %patch0 -p1
 
 # fix wrong-script-interpreter errors
-sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python2|g' flowblade-trunk/Flowblade/launch/*
-sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python2|g' flowblade-trunk/Flowblade/tools/clapperless.py
+sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|g' flowblade-trunk/Flowblade/launch/*
+sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|g' flowblade-trunk/Flowblade/tools/clapperless.py
 
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" flowblade-trunk/Flowblade/translations.py
@@ -88,30 +80,30 @@ sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" flowblade-trunk/Flowblade
 
 %build 
 cd flowblade-trunk
-%py2_build
+%py3_build
 
 %install 
 cd flowblade-trunk
-%py2_install 
+%py3_install 
 
 # fix permissions
-chmod +x %{buildroot}%{python2_sitelib}/Flowblade/launch/*
+chmod +x %{buildroot}%{python3_sitelib}/Flowblade/launch/*
 
 # setup of mime is already done, so for what we need this file ?
 rm %{buildroot}/usr/lib/mime/packages/flowblade
 
 # move .mo files to /usr/share/locale the right place
-for i in $(ls -d %{buildroot}%{python2_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
+for i in $(ls -d %{buildroot}%{python3_sitelib}/Flowblade/locale/*/LC_MESSAGES/ | sed 's/\(^.*locale\/\)\(.*\)\(\/LC_MESSAGES\/$\)/\2/') ; do
     mkdir -p %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
-    mv %{buildroot}%{python2_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
+    mv %{buildroot}%{python3_sitelib}/Flowblade/locale/$i/LC_MESSAGES/%{name}.mo \
         %{buildroot}%{_datadir}/locale/$i/LC_MESSAGES/
 done
 
 # E: non-executable-script
-chmod a+x %{buildroot}%{python2_sitelib}/Flowblade/tools/clapperless.py
+chmod a+x %{buildroot}%{python3_sitelib}/Flowblade/tools/clapperless.py
 
-install -d -m 0755 %{buildroot}%{python2_sitelib}/Flowblade/res/css
-cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python2_sitelib}/Flowblade/res/css
+install -d -m 0755 %{buildroot}%{python3_sitelib}/Flowblade/res/css
+cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python3_sitelib}/Flowblade/res/css
 
 %find_lang %{name}
 
@@ -128,10 +120,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/mime/packages/%{unique_name}.xml
 %{_datadir}/appdata/%{unique_name}.appdata.xml
 %{_datadir}/icons/hicolor/128x128/apps/%{unique_name}.png
-%{python2_sitelib}/Flowblade/
-%{python2_sitelib}/%{name}*
+%{python3_sitelib}/Flowblade/
+%{python3_sitelib}/%{name}*
 
 %changelog
+* Fri Dec 13 2019 Martin Gansser <martinkg@fedoraproject.org> - 2.4-1
+- Update to 2.4-1
+- Switched to python3
+
 * Thu Sep 12 2019 Sérgio Basto <sergio@serjux.com> - 2.2-1
 - Update Flowblade to 2.2
 

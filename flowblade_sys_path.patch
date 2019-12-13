@@ -1,25 +1,25 @@
---- ./flowblade-trunk/flowblade.orig	2019-08-26 08:46:04.000000000 +0100
-+++ ./flowblade-trunk/flowblade	2019-09-12 23:38:15.039286989 +0100
-@@ -36,7 +36,8 @@ print "Launch script dir:", launch_dir
- # When running on distro
- if launch_dir in {"bin", "/usr/bin", "/usr/local/bin"}:
-     print "Running from installation..."
+--- ./flowblade-trunk/flowblade.orig	2019-12-13 09:18:10.874337994 +0100
++++ ./flowblade-trunk/flowblade	2019-12-13 09:21:34.887354575 +0100
+@@ -36,7 +36,8 @@
+ # When running on distro.
+ if launch_dir == "/usr/bin":
+     print ("Running from installation...")
 -    modules_path = "/usr/share/flowblade/Flowblade"
 +    from distutils.sysconfig import get_python_lib
 +    modules_path = "%s/Flowblade" % get_python_lib()
      if not os.path.isdir(modules_path):
          modules_path = "/usr/share/pyshared/Flowblade"
-     print "modules path:", modules_path
-@@ -46,11 +47,11 @@ elif launch_dir == "/app/bin":
+     print ("modules path:", modules_path)
+@@ -46,11 +47,11 @@
      modules_path = "/app/share/flowblade/Flowblade"
      if not os.path.isdir(modules_path):
          modules_path = "/app/share/pyshared/Flowblade"
--    print "modules path:", modules_path
- # When running in filesystem
+-    print ("modules path:", modules_path)
+ # When running in filesystem.
  else:
-     print "Running from filesystem..."
+     print ("Running from filesystem...")
      modules_path = launch_dir + "/Flowblade"
-+    print "modules path:", modules_path
++    print ("modules path:", modules_path)
  
  sys.path.insert(0, modules_path)
  
