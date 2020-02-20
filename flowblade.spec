@@ -9,11 +9,11 @@
 
 Name:           flowblade
 %if 0%{?usesnapshot}
-Version:        2.4
-Release:        2%{?dist}
+Version:        2.4.0.1
+Release:        1%{?dist}
 %else
-Version:        2.4
-Release:        2%{?dist}
+Version:        2.4.0.1
+Release:        1%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -21,7 +21,7 @@ Url:            https://github.com/jliljebl/flowblade
 %if 0%{?usesnapshot}
 Source0:        %{url}/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar.gz
 %else
-Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}-fix_release/%{name}-%{version}.tar.gz
 %endif
 Patch0:         flowblade_sys_path.patch
 
@@ -64,7 +64,7 @@ Flowblade provides powerful tools to mix and filter video and audio.
 %if 0%{?usesnapshot}
 %setup -qn %{name}-%{commit0}
 %else
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version}-fix_release
 %endif
 
 # fix to  /usr/bin/flowblade
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Thu Feb 20 2020 Leigh Scott <leigh123linux@gmail.com> - 2.4.0.1-1
+- Update 2.4.0.1 (rfbz#5529)
+
 * Tue Feb 04 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
