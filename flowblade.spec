@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        2.4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Sat May 30 2020 Leigh Scott <leigh123linux@gmail.com> - 2.4.0.1-2
+- Rebuild for python-3.9
+
 * Thu Feb 20 2020 Leigh Scott <leigh123linux@gmail.com> - 2.4.0.1-1
 - Update 2.4.0.1 (rfbz#5529)
 
