@@ -12,8 +12,8 @@ Name:           flowblade
 Version:        2.4.0.1
 Release:        4%{?dist}
 %else
-Version:        2.6.3
-Release:        2%{?dist}
+Version:        2.8
+Release:        1%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -64,11 +64,8 @@ Flowblade provides powerful tools to mix and filter video and audio.
 %if 0%{?usesnapshot}
 %setup -qn %{name}-%{commit0}
 %else
-%setup -q -n %{name}-%{version}
+%autosetup -p0 -n %{name}-%{version}
 %endif
-
-# fix to  /usr/bin/flowblade
-%patch0 -p1
 
 # fix wrong-script-interpreter errors
 sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|g' flowblade-trunk/Flowblade/launch/*
@@ -76,7 +73,6 @@ sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|g' flowblade-trunk/Flowbla
 
 # fix to %%{_datadir}/locale
 sed -i "s|respaths.LOCALE_PATH|'%{_datadir}/locale'|g" flowblade-trunk/Flowblade/translations.py
-
 
 %build 
 cd flowblade-trunk
@@ -109,7 +105,7 @@ cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python3_sitelib}/Flowb
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{unique_name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
 
 %files -f flowblade-trunk/%{name}.lang
 %doc flowblade-trunk/README
@@ -118,12 +114,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/applications/%{unique_name}.desktop
 %{_mandir}/man1/%{name}.1.*
 %{_datadir}/mime/packages/%{unique_name}.xml
-%{_datadir}/appdata/%{unique_name}.appdata.xml
+%{_datadir}/metainfo/%{unique_name}.appdata.xml
 %{_datadir}/icons/hicolor/128x128/apps/%{unique_name}.png
 %{python3_sitelib}/Flowblade/
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Mon Feb 15 2021 Martin Gansser <martinkg@fedoraproject.org> - 2.8.1
+- Update to 2.8
+
 * Wed Feb 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
