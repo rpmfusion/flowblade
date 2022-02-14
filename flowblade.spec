@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.4.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 %else
 Version:        2.8.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -24,6 +24,7 @@ Source0:        %{url}/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 Patch0:         flowblade_sys_path.patch
+Patch1:         mlt7.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -64,7 +65,7 @@ Flowblade provides powerful tools to mix and filter video and audio.
 %if 0%{?usesnapshot}
 %setup -qn %{name}-%{commit0}
 %else
-%autosetup -p0 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 %endif
 
 # fix wrong-script-interpreter errors
@@ -120,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Mon Feb 14 2022 Sérgio Basto <sergio@serjux.com> - 2.8.0.3-5
+- Add patch to mlt7
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.8.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

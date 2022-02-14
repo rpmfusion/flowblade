@@ -1,5 +1,5 @@
---- flowblade-trunk/flowblade.orig	2021-02-15 17:46:41.584404702 +0100
-+++ flowblade-trunk/flowblade	2021-02-15 17:52:37.697270687 +0100
+--- ./flowblade-trunk/flowblade.orig	2021-02-15 17:46:41.584404702 +0100
++++ ./flowblade-trunk/flowblade	2021-02-15 17:52:37.697270687 +0100
 @@ -36,10 +36,10 @@
  # - When running on distro.
  if os.path.realpath(launch_dir) == "/usr/bin":
