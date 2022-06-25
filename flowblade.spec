@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.4.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 %else
 Version:        2.8.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -121,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Sat Jun 25 2022 Robert-André Mauchin <zebob.m@gmail.com> - 2.8.0.3-6
+- Rebuilt for Python 3.11
+
 * Mon Feb 14 2022 Sérgio Basto <sergio@serjux.com> - 2.8.0.3-5
 - Add patch to mlt7
 
