@@ -12,8 +12,8 @@ Name:           flowblade
 Version:        2.4.0.1
 Release:        12%{?dist}
 %else
-Version:        2.8.0.3
-Release:        9%{?dist}
+Version:        2.10.0.4
+Release:        1%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -24,7 +24,7 @@ Source0:        %{url}/archive/%{commit0}/%{name}-%{version}-%{shortcommit0}.tar
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 Patch0:         flowblade_sys_path.patch
-Patch1:         mlt7.patch
+#Patch1:         mlt7.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -37,6 +37,7 @@ Requires:       gmic
 Requires:       gtk3
 # This dependency isn't available anymore since f30
 Requires:       ladspa-calf-plugins
+Requires:       ladspa-swh-plugins
 Requires:       librsvg2
 Requires:       python3-numpy
 Requires:       python3-pillow
@@ -99,8 +100,8 @@ done
 # E: non-executable-script
 chmod a+x %{buildroot}%{python3_sitelib}/Flowblade/tools/clapperless.py
 
-install -d -m 0755 %{buildroot}%{python3_sitelib}/Flowblade/res/css
-cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python3_sitelib}/Flowblade/res/css
+#install -d -m 0755 %{buildroot}%{python3_sitelib}/Flowblade/res/css
+#cp Flowblade/res/css/gtk-flowblade-dark.css %{buildroot}%{python3_sitelib}/Flowblade/res/css
 
 %find_lang %{name}
 
@@ -121,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Sat Aug 05 2023 Martin Gansser <martinkg@fedoraproject.org> - 2.10.0.4-1
+- Update to 2.10.0.4
+
 * Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.8.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
