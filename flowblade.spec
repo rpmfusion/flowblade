@@ -12,7 +12,7 @@ Name:           flowblade
 Version:        2.4.0.1
 Release:        12%{?dist}
 %else
-Version:        2.12
+Version:        2.12.0.2
 Release:        1%{?dist}
 %endif
 License:        GPLv3
@@ -122,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Tue Jan 02 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.12.0.2-1
+- Update to 2.12.0.2
+
 * Sun Dec 03 2023 Martin Gansser <martinkg@fedoraproject.org> - 2.12-1
 - Update to 2.12
 
