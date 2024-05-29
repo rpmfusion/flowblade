@@ -13,7 +13,7 @@ Version:        2.14.0.2
 Release:        1%{?dist}
 %else
 Version:        2.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -43,6 +43,7 @@ Requires:       python3-numpy
 Requires:       python3-pillow
 Requires:       python3-dbus
 Requires:       python3-gobject
+Requires:       python3-libusb1
 Requires:       mlt-freeworld
 Requires:       shared-mime-info%{?_isa}
 
@@ -122,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Wed May 29 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.16-2
+- Add RR python3-libusb1
+
 * Wed May 29 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.16-1
 - Update to 2.16
 
