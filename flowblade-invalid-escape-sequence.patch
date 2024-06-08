@@ -1,0 +1,29 @@
+--- ./flowblade-trunk/Flowblade/keyevents.py.orig	2024-06-08 09:56:17.758693101 +0200
++++ ./flowblade-trunk/Flowblade/keyevents.py	2024-06-08 09:57:55.533079094 +0200
+@@ -561,10 +561,10 @@
+         if modifier == "":
+             modifier = 'None'
+         try:
+-            action = _secondary_dict[''.join(sorted(re.sub('[\s]','',modifier.lower())))]
++            action = _secondary_dict[''.join(sorted(re.sub(r'[\s+]','',modifier.lower())))]
+         except:
+             try:
+-                action = _secondary_dict[''.join(sorted(re.sub('[\s]','','Any'.lower())))]
++                action = _secondary_dict[''.join(sorted(re.sub(r'[\s+]','','Any'.lower())))]
+             except:
+                 action = 'None'
+         return action
+--- ./flowblade-trunk/Flowblade/shortcuts.py.orig	2024-06-08 09:59:00.103761405 +0200
++++ ./flowblade-trunk/Flowblade/shortcuts.py	2024-06-08 09:59:42.021175923 +0200
+@@ -141,9 +141,9 @@
+                     # to easily compare with any entered combo of the modifiers. In fact, CTRL+ALT becomes the
+                     # same as ALT+CTRL and Alt+Ctrl- it will all be +acllrtt
+                     if event.get('modifiers') == None:
+-                        _modifier_dict[''.join(sorted(re.sub('[\s]','','None'.lower())))] = event.get('code')
++                        _modifier_dict[''.join(sorted(re.sub(r'[\s+]','','None'.lower())))] = event.get('code')
+                     else:
+-                        _modifier_dict[''.join(sorted(re.sub('[\s]','',event.get('modifiers').lower())))] = event.get('code')
++                        _modifier_dict[''.join(sorted(re.sub(r'[\s+]','',event.get('modifiers').lower())))] = event.get('code')
+                     _keyboard_actions[event.text] = _modifier_dict
+         _editable = root.get('editable')
+     except:
