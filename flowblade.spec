@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.14.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        2.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 License:        GPLv3
 Summary:        Multitrack non-linear video editor for Linux
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Thu Jun 13 2024 Leigh Scott <leigh123linux@gmail.com> - 2.16.2-2
+- Rebuilt for Python 3.13
+
 * Sat Jun 08 2024 Martin Gansser <martinkg@fedoraproject.org> - 2.16.2-1
 - Update to 2.16.2
 - Add %%{name}-invalid-escape-sequence.patch 
